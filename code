@@ -1,0 +1,30 @@
+#code used below
+
+
+  #!/bin/bash
+   # Loop through all .html files in the current directory
+   for file in *.html; do
+  sed -n '/<article/,/<\/article>/p' "$file" | sed '/<article>/d; /<\/article>/d' > "${file%.html}.htm"; done
+
+
+with wkhtmltopdf 
+sudo apt-get install wkhtmltopdf
+ 
+#!/bin/bash
+   # Loop through all .htm files in the current directory
+   for file in *.htm; do
+  wkhtmltopdf "$file" "${file%.htm}.pdf"; done
+   wkhtmltopdf What\ is\ Inducement\ in\ Forex\ -\ Market\ Structure.htm What\ is\ Inducement\ in\ Forex\ -\ Market\ Structure.pdf
+
+with pandoc
+   sudo apt-get install pandoc wkhtmltopdf
+  pandoc input.htm -o output.pdf --pdf-engine=wkhtmltopdf
+
+
+<<< worked really well with chromium >>>
+
+  chromium-browser --headless --disable-gpu --print-to-pdf="output.pdf" "file:///path/to/file.htm"
+ 
+ # Loop through all .htm files in the current directory
+ for file in *.htm; do   if [[ -f "$file" ]]; then
+ chromium-browser --headless --disable-gpu --print-to-pdf="${file%.htm}.pdf" "file://$PWD/$file"         if [[ $? -ne 0 ]]; then       echo "Failed to convert $file to PDF";     else       echo "Successfully converted $file to ${file%.htm}.pdf";     fi;   else     echo "No .htm files found in the current directory.";   fi; done
